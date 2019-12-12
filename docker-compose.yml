@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres:
+    image: mdillon/postgis:10
+    ports:
+      - 5432:5432
+    volumes:
+      - ..:/tmp
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=senha
+      - POSTGRES_USER=usuario
+      - POSTGRES_DB=database
+
+  php:
+    build: ./docker
+    ports:
+     - "80:80"
+     - "443:443"
+    volumes:
+     - .:/var/www
+    depends_on:
+      - postgres
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+volumes:
+  db_data:

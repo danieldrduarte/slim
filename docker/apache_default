@@ -1,0 +1,23 @@
+<VirtualHost *:80>
+    DocumentRoot "/var/www/"
+    ErrorLog /dev/stdout
+    CustomLog /dev/stdout combined
+
+    DirectoryIndex index.php
+   	Header Set Access-Control-Allow-Origin "*"
+   	Header Set Access-Control-Allow-Headers "Content-Type"
+
+   	<Directory "/var/www/">
+   	    Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    AddDefaultCharset UTF-8
+
+    php_admin_value default_charset UTF-8
+    php_admin_value output_buffering on
+    php_admin_flag display_errors on
+    php_admin_flag max_execution_time 0
+    php_admin_flag short_open_tag on
+</VirtualHost>
